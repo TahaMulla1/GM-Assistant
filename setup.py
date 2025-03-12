@@ -81,12 +81,16 @@ def install_optimal_dependencies():
         pass
     
     # Default to CPU version
-    print("No compatible GPU detected or GPU drivers not found, installing CPU PyTorch...")
-    subprocess.check_call([
-        sys.executable, "-m", "pip", "install", 
-        "torch", "torchvision", "torchaudio",
-        "--index-url", "https://download.pytorch.org/whl/cpu"
-    ])
+    print("No compatible GPU detected or GPU drivers not found, do you want to install CPU PyTorch? (y/n)")
+    response = input()
+    if response == "y":
+        subprocess.check_call([
+            sys.executable, "-m", "pip", "install", 
+            "torch", "torchvision", "torchaudio",
+            "--index-url", "https://download.pytorch.org/whl/cpu"
+        ])
+    else:
+        print("CPU PyTorch installation cancelled")
 
 if __name__ == "__main__":
     install_optimal_dependencies()
